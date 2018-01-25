@@ -1,15 +1,86 @@
 import React, { Component } from 'react';
-import Listy from './test.js'
+// import {Tooltip, OverlayTrigger} from 'react-bootstrap';
+// import './App.css';
 
 var placeholder = document.createElement("li");
 placeholder.className = "placeholder";
 
-class Profile extends Component {
-  constructor(props){
+class List extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {...props};
+  }
+  dragStart(e) {
+    this.dragged = e.currentTarget;
+    e.dataTransfer.effectAllowed = 'move';
+    e.dataTransfer.setData('text/html', this.dragged);
+  }
+  dragEnd(e) {
+    this.dragged.style.display = 'block';
+    this.dragged.parentNode.removeChild(placeholder);
+
+    // update state
+    var data = this.state.toDos;
+    var from = Number(this.dragged.dataset.id);
+    var to = Number(this.over.dataset.id);
+    if(from < to) to--;
+    data.splice(to, 0, data.splice(from, 1)[0]);
+    this.setState({toDos: data});
+  }
+  dragOver(e) {
+    console.log(e);
+    e.preventDefault();
+    this.dragged.style.display = "none";
+    if(e.target.className === 'placeholder') return;
+    this.over = e.target;
+    e.target.parentNode.insertBefore(placeholder, e.target);
+  }
+  deleteHandler = () => {
+    console.log('Finding this?');
+    // this.bind(this).onDelete(this.props.item);
+    console.log(this.state.item);
+    // console.log(data.splice(from, 1)[0]);
+    console.log(this);
+    // this.props
+
+  }
+  render() {
+    var listItems = this.state.toDos.map((item, i) => {
+      return (
+        <li
+          onDelete={this.props.onDelete}
+          data-id={i}
+          key={i}
+          draggable='true'
+          onDragEnd={this.dragEnd.bind(this)}
+          onDragStart={this.dragStart.bind(this)}>{item}
+          <button className="btn-xs btn-danger pull-right" onClick={this.deleteHandler}>X</button>
+          </li>
+      )
+     });
+    return (
+      <ul onDragOver={this.dragOver.bind(this)}>
+        {listItems} 
+      </ul>
+    )
+  }
+}
+
+// render(){
+//     const toDosItems = this.props.items.map(thing => {
+//       return (<ListItem item={thing} key={thing} onDelete={this.props.onDelete} />);
+//     });
+//     return (
+//         <ul className="list-group">{toDosItems}</ul>
+//     );
+//   }
+
+class Listy extends React.Component {
+  constructor(props) {
     super(props);
     this.state = {
       error: '',
-      toDos: ['Mow the lawn', 'Get groceries', 'Wash the dog', 'Do Homework', 'Laundry'],
+      toDos: ['one', 'two', 'Blue', 'four', 'nine', 'yes', 'Orange'],
       newItem: ''
     }
   }
@@ -42,10 +113,8 @@ class Profile extends Component {
     this.setState({ newItem: e.target.value, error: ''});
   }
   render() {
-  
-    // jsx code want to use when calling variable
     return (
-      <div className="container">
+      <div>
         <header className="header-background">
           <h1 className="header-title">To-Do List</h1>
         </header>
@@ -64,9 +133,9 @@ class Profile extends Component {
             <button className="btn btn-primary" onClick={this.add}>add</button>
             <button className="btn btn-warning" onClick={this.clear}>clear</button>
           </div>
-          <Listy />
+        <List toDos={this.state.toDos} />
       </div>
-    );
+    )
   }
 }
 
@@ -95,5 +164,4 @@ class ListItem extends Component {
   }
 }
 
-
-export default Profile;
+export default Listy;
