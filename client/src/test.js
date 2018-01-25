@@ -5,10 +5,14 @@ import React, { Component } from 'react';
 var placeholder = document.createElement("li");
 placeholder.className = "placeholder";
 
-class List extends React.Component {
+class Listy extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {...props};
+    this.state = {
+      error: '',
+      toDos: ['one', 'two', 'Blue', 'four', 'nine', 'yes', 'Orange'],
+      newItem: ''
+    }
   }
   dragStart(e) {
     this.dragged = e.currentTarget;
@@ -20,7 +24,7 @@ class List extends React.Component {
     this.dragged.parentNode.removeChild(placeholder);
 
     // update state
-    var data = this.state.toDos;
+    let data = this.state.toDos;
     var from = Number(this.dragged.dataset.id);
     var to = Number(this.over.dataset.id);
     if(from < to) to--;
@@ -37,39 +41,10 @@ class List extends React.Component {
   }
   delete(item){
     const newState = this.state.toDos.slice();
-    if (newState.indexOf(item) > -1) {
+    console.log(newState);
+    if (newState.indexOf(item) >= 0) {
       newState.splice(newState.indexOf(item), 1);
       this.setState({toDos: newState})
-    }
-  }
-  render() {
-    var listItems = this.state.toDos.map((item, i) => {
-      return (
-        <li
-          data-id={i}
-          key={i}
-          draggable='true'
-          onDragEnd={this.dragEnd.bind(this)}
-          onDragStart={this.dragStart.bind(this)}>{item}
-          <button className="btn-xs btn-danger pull-right" onClick={this.delete.bind(this, item)}>Delete</button>
-          </li>
-      )
-     });
-    return (
-      <ul onDragOver={this.dragOver.bind(this)}>
-        {listItems}
-      </ul>
-    )
-  }
-}
-
-class Listy extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      error: '',
-      toDos: ['one', 'two', 'Blue', 'four', 'nine', 'yes', 'Orange'],
-      newItem: ''
     }
   }
   clear = () => {
@@ -94,6 +69,18 @@ class Listy extends React.Component {
     this.setState({ newItem: e.target.value, error: ''});
   }
   render() {
+    var listItems = this.state.toDos.map((item, i) => {
+      return (
+        <li
+          data-id={i}
+          key={i}
+          draggable='true'
+          onDragEnd={this.dragEnd.bind(this)}
+          onDragStart={this.dragStart.bind(this)}>{item}
+          <button className="btn-xs btn-danger pull-right" onClick={this.delete.bind(this, item)}>Delete</button>
+          </li>
+      )
+     });
     return (
       <div>
         <header className="header-background">
@@ -101,20 +88,22 @@ class Listy extends React.Component {
         </header>
             {/*Todo list goes here*/}
         <div className="toDo-list">
-          <List toDos={this.state.toDos} />
+          <ul onDragOver={this.dragOver.bind(this)}>
+            {listItems}
+          </ul>
         </div>
                {/*eror messages goes here*/}
           <p className="text-danger">{this.state.error}</p>
                  {/*form to add a new item*/}
           <form onSubmit={this.add}>
-            <input type="text" className="form-control" placeholder="What are you doing?" onChange={this.newItemChange} value={this.state.newItem}/>
+            <input type="text" className="form-control" placeholder="To be accomplished..." onChange={this.newItemChange} value={this.state.newItem}/>
           </form>
                   {/*Button to clear the list*/}
           <div className="text-left">
             <button className="btn btn-primary" onClick={this.add}>add</button>
             <button className="btn btn-warning" onClick={this.clear}>clear</button>
           </div>
-      </div>
+        </div>
     )
   }
 }
