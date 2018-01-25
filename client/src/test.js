@@ -35,45 +35,33 @@ class List extends React.Component {
     this.over = e.target;
     e.target.parentNode.insertBefore(placeholder, e.target);
   }
-  deleteHandler = () => {
-    console.log('Finding this?');
-    // this.bind(this).onDelete(this.props.item);
-    console.log(this.state.item);
-    // console.log(data.splice(from, 1)[0]);
-    console.log(this);
-    // this.props
-
+  delete(item){
+    const newState = this.state.toDos.slice();
+    if (newState.indexOf(item) > -1) {
+      newState.splice(newState.indexOf(item), 1);
+      this.setState({toDos: newState})
+    }
   }
   render() {
     var listItems = this.state.toDos.map((item, i) => {
       return (
         <li
-          onDelete={this.props.onDelete}
           data-id={i}
           key={i}
           draggable='true'
           onDragEnd={this.dragEnd.bind(this)}
           onDragStart={this.dragStart.bind(this)}>{item}
-          <button className="btn-xs btn-danger pull-right" onClick={this.deleteHandler}>X</button>
+          <button className="btn-xs btn-danger pull-right" onClick={this.delete.bind(this, item)}>Delete</button>
           </li>
       )
      });
     return (
       <ul onDragOver={this.dragOver.bind(this)}>
-        {listItems} 
+        {listItems}
       </ul>
     )
   }
 }
-
-// render(){
-//     const toDosItems = this.props.items.map(thing => {
-//       return (<ListItem item={thing} key={thing} onDelete={this.props.onDelete} />);
-//     });
-//     return (
-//         <ul className="list-group">{toDosItems}</ul>
-//     );
-//   }
 
 class Listy extends React.Component {
   constructor(props) {
@@ -87,24 +75,17 @@ class Listy extends React.Component {
   clear = () => {
     this.setState({ toDos: [] });
   }
-  deleteItem = (item) => {
-    let toDosLocal = this.state.toDos;
-    let itemIndex = toDosLocal.indexOf(item);
-
-    if(itemIndex >= 0){
-      toDosLocal.splice(itemIndex, 1);
-      this.setState({ toDos: toDosLocal });
-    }
-  }
   add = (e) => {
     e.preventDefault();
+    console.log('Add Function ROutek');
     if(this.state.newItem){
       // newItem is a non-empty string
+      console.log(this.state.newItem);
+      console.log(this.state.toDos);
       let toDosLocal = this.state.toDos;
       toDosLocal.push(this.state.newItem);
       this.setState({error: '', newItem: '', toDos: toDosLocal });
-    }
-    else {
+    } else {
       //new item is empty, don't add it
       this.setState({error: 'please type something in thy box'});
     }
@@ -120,7 +101,7 @@ class Listy extends React.Component {
         </header>
             {/*Todo list goes here*/}
         <div className="toDo-list">
-        <ToDoList items={this.state.toDos} onDelete={this.deleteItem} />
+          <List toDos={this.state.toDos} />
         </div>
                {/*eror messages goes here*/}
           <p className="text-danger">{this.state.error}</p>
@@ -133,34 +114,8 @@ class Listy extends React.Component {
             <button className="btn btn-primary" onClick={this.add}>add</button>
             <button className="btn btn-warning" onClick={this.clear}>clear</button>
           </div>
-        <List toDos={this.state.toDos} />
       </div>
     )
-  }
-}
-
-class ToDoList extends Component {
-  render(){
-    const toDosItems = this.props.items.map(thing => {
-      return (<ListItem item={thing} key={thing} onDelete={this.props.onDelete} />);
-    });
-    return (
-        <ul className="list-group">{toDosItems}</ul>
-    );
-  }
-}
-
-class ListItem extends Component {
-  deleteHandler = () => {
-    this.props.onDelete(this.props.item);
-  }
-  render(){
-    return(
-      <li className="list-group-item">
-        {this.props.item}
-        <button className="btn-xs btn-danger pull-right" onClick={this.deleteHandler}>X</button>
-      </li>
-    );
   }
 }
 
