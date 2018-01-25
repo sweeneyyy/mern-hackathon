@@ -1,7 +1,7 @@
 /* CUSTOM STYLES */
 nav {
   width: 100%;
-  background-color: #555;
+  background-color: #d6d4d4;
   padding: 10px 0;
 }
 
@@ -9,7 +9,7 @@ nav a {
   margin: 10px;
   text-decoration: none;
   font-size: 18px;
-  color: #4ff;
+  color: #41688a;
 }
 
 nav a:hover {
@@ -20,6 +20,48 @@ li {
   list-style: none;
 }
 
+.grid {
+  display: inline-block;
+  width: 700px;
+  margin-bottom: 50px;
+}
+
+.quad {
+  display: inline-block;
+  width: 250px;
+  height: 300px;
+  /*border: 1px solid black;*/
+  padding: 10px;
+  margin: 5px;
+
+}
+
+#quad-one {
+  border: 1px solid black;
+  border-radius: 5px;
+  background-color: #dbf9f0;
+  /*border-color: hotpink*/
+  /*z-index: 3;*/
+}
+
+#quad-two {
+  border: 1px solid black;
+  border-radius: 5px;
+  background-color: #fcf4ab;
+  /*z-index: 3;*/
+}
+#quad-three {
+  border: 1px solid black;
+  border-radius: 5px;
+  background-color: #f9bbbb;
+  /*z-index: 3;*/
+}
+#quad-four {
+  border: 1px solid black;
+  border-radius: 5px;
+  background-color: #b7d9f4;
+  /*z-index: 3;*/
+}
 /*.toDo-list {
   border: 1px solid black;
   background-color: #555;
@@ -27,6 +69,9 @@ li {
   height: 250px;
 
 }*/
+div .footer {
+  bottom: 0;
+}
 
 .footer {
   background-color: #555;
@@ -47,7 +92,8 @@ li {
 
 .btn-primary {
   color: #fff;
-  background-color: #11f;
+  width: 50px;
+  background-color: #6dc66d;
   border-radius: 2px;
   border: none;
   padding: 3px;
@@ -85,8 +131,8 @@ li {
 }
 
 .x-button {
-  background-color: red;
-  color: white;
+  background-color: white;
+  color: red;
   border-radius: 2px;
   float: right;
 }
@@ -104,7 +150,7 @@ li {
 }*/
 
 .App-header {
-  background-color: #222;
+  background-color: #41688a;
   height: 100px;
   padding: 20px;
   color: white;

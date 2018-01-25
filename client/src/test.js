@@ -77,16 +77,12 @@ class Listy extends React.Component {
           draggable='true'
           onDragEnd={this.dragEnd.bind(this)}
           onDragStart={this.dragStart.bind(this)}>{item}
-          <button className="btn-xs btn-danger pull-right" onClick={this.delete.bind(this, item)}>Delete</button>
+          <button className="btn-xs btn-danger pull-right x-button" onClick={this.delete.bind(this, item)}>X</button>
           </li>
       )
      });
     return (
       <div>
-        <header className="header-background">
-          <h1 className="header-title">To-Do List</h1>
-        </header>
-            {/*Todo list goes here*/}
         <div className="toDo-list">
           <ul onDragOver={this.dragOver.bind(this)}>
             {listItems}
@@ -95,14 +91,18 @@ class Listy extends React.Component {
                {/*eror messages goes here*/}
           <p className="text-danger">{this.state.error}</p>
                  {/*form to add a new item*/}
+         
           <form onSubmit={this.add}>
+           <span>
             <input type="text" className="form-control" placeholder="To be accomplished..." onChange={this.newItemChange} value={this.state.newItem}/>
+             <button className="btn btn-primary" onClick={this.add}>add</button>
+            </span>
           </form>
                   {/*Button to clear the list*/}
-          <div className="text-left">
-            <button className="btn btn-primary" onClick={this.add}>add</button>
-            <button className="btn btn-warning" onClick={this.clear}>clear</button>
-          </div>
+          {/*<div className="text-left"> */}
+           
+            {/*<button className="btn btn-warning" onClick={this.clear}>clear</button>*/}
+          {/*</div>*/}
         </div>
     )
   }

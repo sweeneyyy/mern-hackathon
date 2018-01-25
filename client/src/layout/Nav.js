@@ -18,7 +18,7 @@ class Nav extends Component {
             {links}
           </nav>
           <header className="App-header">
-            <h1 className="App-title">Covey Quadrants</h1>
+            <h1 className="App-title">FOCUS!!</h1>
           </header>
         </div>
       );
