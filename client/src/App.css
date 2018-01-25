@@ -16,6 +16,10 @@ nav a:hover {
   color: #7f4dd2;
 }
 
+.test{
+  color: hotpink;
+}
+
 .footer {
   background-color: #555;
   position: absolute;
@@ -78,6 +82,8 @@ nav a:hover {
   border-radius: 2px;
   float: right;
 }
+
+
 
 /* DEFAULT STYLES FROM CREATE REACT APP MODULE */
 .App {
