@@ -16,8 +16,18 @@ nav a:hover {
   color: #7f4dd2;
 }
 
+/*ul {
+  display: inline-block;
+
+}*/
+
 li {
   list-style: none;
+  text-align: center;
+}
+
+form {
+  bottom: 0;
 }
 
 .grid {
@@ -29,15 +39,17 @@ li {
 .quad {
   display: inline-block;
   width: 250px;
-  height: 300px;
+  min-height: 300px;
+  color: #41688a;
   /*border: 1px solid black;*/
   padding: 10px;
-  margin: 5px;
+  margin: 10px;
 
 }
 
 #quad-one {
   border: 1px solid black;
+  /*border-color: #41688a;*/
   border-radius: 5px;
   background-color: #dbf9f0;
   /*border-color: hotpink*/
