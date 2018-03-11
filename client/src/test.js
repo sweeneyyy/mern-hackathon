@@ -94,8 +94,8 @@ class Listy extends React.Component {
          
           <form onSubmit={this.add}>
            <span>
-            <input type="text" className="form-control" placeholder="To be accomplished..." onChange={this.newItemChange} value={this.state.newItem}/>
-             <button className="btn btn-primary" onClick={this.add}>add</button>
+            <input type="text" className="form-control" placeholder="add to list..." onChange={this.newItemChange} value={this.state.newItem}/>
+             <button className="btn btn-primary" onClick={this.add}> + </button>
             </span>
           </form>
                   {/*Button to clear the list*/}
